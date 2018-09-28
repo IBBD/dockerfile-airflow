@@ -6,8 +6,7 @@ MAINTAINER ibbd "admin@ibbd.net"
 
 # 添加oracle支持
 RUN apt-get update && apt-get install -y libaio1 unzip && rm -rf /var/lib/apt/lists/*
-RUN mkdir /opt/oracle/ && cd /opt/oracle/
-RUN wget -O 'instantclient_11_2.zip' 'http://jmimp.2017.ibbd.net/instantclient_11_2.zip'
+COPY instantclient_11_2.zip /opt/oracle/instantclient_11_2.zip
 RUN unzip /opt/oracle/instantclient_11_2.zip
 RUN sh -c "echo /opt/oracle/instantclient_11_2 > /etc/ld.so.conf.d/oracle-instantclient.conf"
 RUN ldconfig
