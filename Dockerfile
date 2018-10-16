@@ -17,13 +17,29 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
 ENV AIRFLOW_HOME=/airflow
 ENV LD_LIBRARY_PATH=/opt/oracle/instantclient_11_2:$LD_LIBRARY_PATH
-ENV LANG="zh_CN.UTF-8"
+ENV LANGUAGE zh_CN.UTF-8
+ENV LANG zh_CN.UTF-8
+ENV LC_ALL zh_CN.UTF-8
+ENV LC_CTYPE zh_CN.UTF-8
+ENV LC_MESSAGES zh_CN.UTF-8
 ENV NLS_LANG=AMERICAN_AMERICA.UTF8
 ENV TZ "Asia/Shanghai"
 ENV TERM xterm
 
+RUN set -ex \
+    && apt-get update -yqq \
+    && apt-get upgrade -yqq \
+    && apt-get install -yqq --no-install-recommends \
+        apt-utils \
+        locales \
+    && sed -i 's/^# zh_CN.UTF-8 UTF-8$/zh_CN.UTF-8 UTF-8/g' /etc/locale.gen \
+    && locale-gen \
+    && update-locale LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 \
+    && rm -rf \
+        /var/lib/apt/lists/*
+        
 # 安装python的numpy, pandas, scipy, sklearn, MySQL-python|PyMySQL, cx_Oracle, elasticsearch5，apache-airflow扩展
-RUN pip install numpy pandas scipy sklearn PyMySQL cx_Oracle elasticsearch5 apache-airflow
+RUN pip install numpy pandas scipy sklearn PyMySQL cx_Oracle elasticsearch5 pyelasticsearch apache-airflow
 
 # 安装插件
 # 注意插件之间不允许有空格
