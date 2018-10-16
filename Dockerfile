@@ -4,8 +4,23 @@ FROM python:3.6-stretch
 # 定义作者
 MAINTAINER ibbd "admin@ibbd.net"
 
+# 安装依赖包
+RUN set -ex && apt-get update -yqq && apt-get upgrade -yqq \
+    && apt-get install -yqq --no-install-recommends apt-utils locales libaio1 unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# 设置中文支持
+ENV LANGUAGE zh_CN.UTF-8
+ENV LANG zh_CN.UTF-8
+ENV LC_ALL zh_CN.UTF-8
+ENV LC_CTYPE zh_CN.UTF-8
+ENV LC_MESSAGES zh_CN.UTF-8
+ENV NLS_LANG=AMERICAN_AMERICA.UTF8
+RUN sed -i 's/^# zh_CN.UTF-8 UTF-8$/zh_CN.UTF-8 UTF-8/g' /etc/locale.gen \
+RUN locale-gen \
+RUN update-locale LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8
+
 # 添加oracle支持
-RUN apt-get update && apt-get install -y libaio1 unzip && rm -rf /var/lib/apt/lists/*
 COPY instantclient_11_2.zip /opt/oracle/instantclient_11_2.zip
 RUN unzip -o /opt/oracle/instantclient_11_2.zip -d /opt/oracle/
 RUN rm -rf /opt/oracle/instantclient_11_2.zip && rm -rf /opt/oracle/__MACOSX
