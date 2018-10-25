@@ -55,5 +55,5 @@ RUN mkdir /s3fs_server && apt-get update && apt-get -y install s3fs && rm -rf /v
 # docker build -t ibbd_airflow:v1 ./
 # docker build -t ibbd_airflow:v2 ./
 # docker save 'ibbd_airflow:v1' -o ibbd_airflow_v1.tar
-# docker run -dti --name v1 -p 8080:8080 -v /Users/tengfei/Desktop/ibbd_airflow:/root/airflow ibbd_airflow:v1
+# docker run -dti --privileged --name v1 -p 8080:8080 -v /Users/tengfei/Desktop/ibbd_airflow:/root/airflow ibbd_airflow:v1
 # docker exec -ti v1 /bin/bash
