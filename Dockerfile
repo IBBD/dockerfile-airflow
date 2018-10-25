@@ -48,12 +48,8 @@ COPY service.sh /service.sh
 # 定义工作目录
 WORKDIR /airflow
 
-# 初始化默认的数据库
-#RUN airflow initdb
-
-# 容器启动则启动airflow
-# airflow webserver -p 8080
-#CMD ["airflow","webserver","-p","8080"]
+# 新增S3支持
+RUN mkdir /s3fs_server && apt-get update && apt-get -y install s3fs && rm -rf /var/lib/apt/lists/*
 
 # 编译命令
 # docker build -t ibbd_airflow:v1 ./
