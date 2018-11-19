@@ -5,7 +5,7 @@ FROM python:3.6-stretch
 MAINTAINER ibbd "admin@ibbd.net"
 
 # 添加oracle支持
-RUN apt-get update && apt-get install -y libaio1 unzip && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libaio1 unzip s3fs && rm -rf /var/lib/apt/lists/*
 COPY instantclient_11_2.zip /opt/oracle/instantclient_11_2.zip
 RUN unzip -o /opt/oracle/instantclient_11_2.zip -d /opt/oracle/
 RUN rm -rf /opt/oracle/instantclient_11_2.zip && rm -rf /opt/oracle/__MACOSX
@@ -36,7 +36,7 @@ RUN set -ex \
     && rm -rf /var/lib/apt/lists/*
         
 # 安装python的numpy, pandas, scipy, sklearn, MySQL-python|PyMySQL, cx_Oracle, elasticsearch5，apache-airflow扩展
-RUN pip install numpy pandas scipy sklearn PyMySQL cx_Oracle elasticsearch5 pyelasticsearch apache-airflow
+RUN pip install boto3 numpy pandas scipy sklearn PyMySQL cx_Oracle elasticsearch5 pyelasticsearch apache-airflow
 
 # 安装插件
 # 注意插件之间不允许有空格
@@ -47,9 +47,6 @@ COPY service.sh /service.sh
 
 # 定义工作目录
 WORKDIR /airflow
-
-# 新增S3支持
-RUN mkdir /s3fs_server && apt-get update && apt-get -y install s3fs && rm -rf /var/lib/apt/lists/*
 
 # 编译命令
 # docker build -t ibbd_airflow:v1 ./

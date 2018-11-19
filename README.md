@@ -3,7 +3,7 @@
 ## 说明事项
 
 1. 数据库切换到mariadb无法初始化，这是由于mariadb的设置和版本有关，my.cnf要设置explicit_defaults_for_timestamp=true，版本>=10.2.9
-2. 使用python3.6官方镜像作为基础镜像，同时安装了python的基础扩展(numpy、pandas、scipy、sklearn、PyMySQL、elasticsearch5)
+2. 使用python3.6官方镜像作为基础镜像，同时安装了python的基础扩展(boto3、numpy、pandas、scipy、sklearn、PyMySQL、elasticsearch5)
 3. work目录：/airflow
 
 ## 已经安装的插件
