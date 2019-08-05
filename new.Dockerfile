@@ -15,6 +15,9 @@ RUN pip install boto3 numpy pandas scipy scikit-learn \
 # 注意插件之间不允许有空格
 RUN pip install apache-airflow[mysql,ssh,jdbc,redis,celery,password,kubernetes]
 
+# 定义工作目录
+WORKDIR /airflow
+
 # 终端设置
 # 默认值是dumb，这时在终端操作时可能会出现：terminal is not fully functional
 ENV LANG C.UTF-8
