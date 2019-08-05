@@ -36,7 +36,7 @@ RUN set -ex \
     && rm -rf /var/lib/apt/lists/*
         
 # 安装python的numpy, pandas, scipy, sklearn, MySQL-python|PyMySQL, cx_Oracle, elasticsearch5，apache-airflow扩展
-RUN pip install boto3 numpy pandas scipy sklearn PyMySQL cx_Oracle elasticsearch5 pyelasticsearch apache-airflow
+RUN pip install boto3 numpy pandas scipy scikit-learn PyMySQL cx_Oracle elasticsearch5 pyelasticsearch apache-airflow
 
 # 安装插件
 # 注意插件之间不允许有空格
